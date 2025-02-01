@@ -1,7 +1,11 @@
 name: ci-fullstack-workflow
+description: UdaCraft Fullstack  Application 
 
 # Ensure the workflow runs on schedule (Sunday at 0:00) and on push to the main branch
 on:
+  push:
+    branch: main
+  schedule: '0 0 * * 7'
   
 
 #Use a matrix strategy to use Node.js versions 16.x and 18.x
@@ -11,23 +15,25 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      matrix: 
+        node-version: ['16.x', '18.x']
 
     steps:
       # Check out the code from the repository.
-      - uses: 
+      - uses: actions/checkout@v3
       # Set up a Node.js environment using the specified node version.
-      - uses: 
+      - uses: actions/setup-node@v3
         with:
-          node-version: 
+          node-version: ${{ matrix.node-version }}
 
       # Install the dependencies.
-      - run: 
+      - run: npm ci
 
       # Run the tests.
-      - run: 
+      - run: npm test
 
       # Run the linter.
-      - run: 
+      - run: npm lint
 
       # Send a console message at completion.
       - run: |
