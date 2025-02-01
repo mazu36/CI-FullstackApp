@@ -1,10 +1,11 @@
 name: ci-fullstack-workflow
-description: UdaCraft Fullstack  Application 
+description: UdaCraft Fullstack  Application
 
 # Ensure the workflow runs on schedule (Sunday at 0:00) and on push to the main branch
 on:
   push:
-    branch: main
+    branches: 
+      - main
   schedule: '0 0 * * 7'
   
 
